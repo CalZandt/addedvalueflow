@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     stepDiv.querySelector('input').addEventListener('change', (event) => {
       if (event.target.checked) {
         const note = document.createElement('p');
-        note.textContent = step.text;
+        note.textContent = '> ' + step.text;
         notesDiv.appendChild(note);
       } else {
         Array.from(notesDiv.children).forEach((child) => {
-          if (child.textContent === step.text) {
+          if (child.textContent === '> ' + step.text) {
             notesDiv.removeChild(child);
           }
         });
@@ -47,11 +47,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('decline').addEventListener('click', () => handleCall('Declined'));
   document.getElementById('no-offer').addEventListener('click', () => handleCall('No Offer'));
 
-  document.getElementById('copy-notes').addEventListener('click', () => copyToClipboard(notesDiv));
-  document.getElementById('copy-calls').addEventListener('click', () => copyToClipboard(callsDiv));
+  document.getElementById('copy-notes').addEventListener('click', () => copyToClipboard(notesDiv, 'Notes copied to clipboard.'));
+  document.getElementById('copy-calls').addEventListener('click', () => copyToClipboard(callsDiv, 'Calls copied to clipboard.'));
   document.getElementById('clear-calls').addEventListener('click', clearCalls);
 
   function handleCall(result) {
+    if (notesDiv.children.length === 0) return;
     const text = Array.from(notesDiv.children).map((child) => child.textContent).join('\n');
     if (result !== 'No Offer') {
       navigator.clipboard.writeText(text);
@@ -63,13 +64,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     Array.from(workflowDiv.querySelectorAll('input')).forEach((input) => input.checked = false);
   }
 
-  function copyToClipboard(div) {
+  function copyToClipboard(div, message) {
+    if (div.children.length === 0) return;
     const text = Array.from(div.children).map((child) => child.textContent).join('\n');
     navigator.clipboard.writeText(text);
+    alert(message);
   }
 
   function clearCalls() {
-    callsDiv.innerHTML = '';
+    if (callsDiv.children.length === 0) return;
+    if (confirm('Are you sure you want to clear the call history?')) {
+      callsDiv.innerHTML = '';
+    }
   }
 
   AOS.init();

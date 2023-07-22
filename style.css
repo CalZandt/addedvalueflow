@@ -1,5 +1,18 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e5e5e5;
+}
+
+.container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: #e20074;
+  border-color: #e20074;
 }
 
 .btn-pill {
@@ -18,3 +31,14 @@ body {
   margin-top: 0.3em;
 }
 
+#notes {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#notes p {
+  margin: 0;
+}

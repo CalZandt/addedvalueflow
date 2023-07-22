@@ -27,11 +27,12 @@ body {
   font-weight: 500;
 }
 
-#workflow .form-check-input {
-  margin-top: 0.3em;
+#workflow .form-check-input:checked {
+  background-color: #e20074;
+  border-color: #e20074;
 }
 
-#notes {
+#notes, #calls {
   height: 300px;
   overflow-y: auto;
   border: 1px solid #ccc;
@@ -39,6 +40,11 @@ body {
   margin-bottom: 10px;
 }
 
-#notes p {
+#notes p, #calls p {
   margin: 0;
 }
+
+a {
+  color: #e20074;
+}
+

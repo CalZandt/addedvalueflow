@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   ];
 
   const workflowDiv = document.getElementById('workflow');
+  const notesDiv = document.getElementById('notes');
   steps.forEach((step, index) => {
     const stepDiv = document.createElement('div');
     stepDiv.className = 'form-check';
@@ -25,6 +26,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
       ${step.subtext ? `<div class="form-text">${step.subtext}</div>` : ''}
     `;
     workflowDiv.appendChild(stepDiv);
+
+    stepDiv.querySelector('input').addEventListener('change', (event) => {
+      if (event.target.checked) {
+        const note = document.createElement('p');
+        note.textContent = step.text;
+        notesDiv.appendChild(note);
+      } else {
+        Array.from(notesDiv.children).forEach((child) => {
+          if (child.textContent === step.text) {
+            notesDiv.removeChild(child);
+          }
+        });
+      }
+    });
+  });
+
+  document.querySelector('.btn-primary').addEventListener('click', () => {
+    const text = Array.from(notesDiv.children).map((child) => child.textContent).join('\n');
+    navigator.clipboard.writeText(text);
   });
 
   AOS.init();

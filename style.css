@@ -38,6 +38,10 @@ body {
   font-weight: 500;
 }
 
+#workflow .form-check-input {
+  border-color: #e20074;
+}
+
 #workflow .form-check-input:checked {
   background-color: #e20074;
   border-color: #e20074;

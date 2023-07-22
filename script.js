@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('decline').addEventListener('click', () => handleCall('Declined'));
   document.getElementById('no-offer').addEventListener('click', () => handleCall('No Offer'));
 
+  document.getElementById('copy-notes').addEventListener('click', () => copyToClipboard(notesDiv));
+  document.getElementById('copy-calls').addEventListener('click', () => copyToClipboard(callsDiv));
+  document.getElementById('clear-calls').addEventListener('click', clearCalls);
+
   function handleCall(result) {
     const text = Array.from(notesDiv.children).map((child) => child.textContent).join('\n');
     if (result !== 'No Offer') {
@@ -59,6 +63,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     Array.from(workflowDiv.querySelectorAll('input')).forEach((input) => input.checked = false);
   }
 
+  function copyToClipboard(div) {
+    const text = Array.from(div.children).map((child) => child.textContent).join('\n');
+    navigator.clipboard.writeText(text);
+  }
+
+  function clearCalls() {
+    callsDiv.innerHTML = '';
+  }
+
   AOS.init();
 });
-

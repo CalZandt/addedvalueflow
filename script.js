@@ -58,7 +58,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       navigator.clipboard.writeText(text);
     }
     const call = document.createElement('p');
-    call.textContent = `${new Date().toLocaleString()}: ${result}`;
+    const now = new Date();
+    const date = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    call.textContent = `${date} ${time}: ${result}`;
     callsDiv.prepend(call);
     notesDiv.innerHTML = '';
     Array.from(workflowDiv.querySelectorAll('input')).forEach((input) => input.checked = false);
